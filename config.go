@@ -41,6 +41,7 @@ type Config struct {
 	// ConnectionTrust  may contain a trusted CA or certificate of server if you use self-signed certificate.
 	ConnectionTrust string // *x509.CertPool
 	LogVerbose      bool
+	Log             *log.Logger
 	// http.Client to use durring construction
 	Client *http.Client
 }

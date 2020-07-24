@@ -22,11 +22,12 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"github.com/Venafi/vcert/pkg/certificate"
 	"log"
 	"net/http"
 	"regexp"
 	"sort"
+
+	"github.com/Venafi/vcert/pkg/certificate"
 )
 
 const SDKName = "Venafi VCert-Go"
@@ -88,6 +89,8 @@ type Connector interface {
 	ImportCertificate(req *certificate.ImportRequest) (*certificate.ImportResponse, error)
 	// SetHTTPClient allows to set custom http.Client to this Connector.
 	SetHTTPClient(client *http.Client)
+	// SetLogger sets a custom logger to use
+	SetLogger(log *log.Logger)
 	// ListCertificates
 	ListCertificates(filter Filter) ([]certificate.CertificateInfo, error)
 }

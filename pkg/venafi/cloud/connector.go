@@ -22,11 +22,14 @@ import (
 	"encoding/json"
 	"encoding/pem"
 	"fmt"
-	"github.com/Venafi/vcert/pkg/verror"
+	"log"
 	"net/http"
+	"os"
 	"regexp"
 	"strings"
 	"time"
+
+	"github.com/Venafi/vcert/pkg/verror"
 
 	"github.com/Venafi/vcert/pkg/certificate"
 	"github.com/Venafi/vcert/pkg/endpoint"
@@ -65,6 +68,7 @@ type Connector struct {
 	baseURL string
 	apiKey  string
 	verbose bool
+	log     *log.Logger
 	user    *userDetails
 	trust   *x509.CertPool
 	zone    string
@@ -79,6 +83,7 @@ func NewConnector(url string, zone string, verbose bool, trust *x509.CertPool) (
 	if err != nil {
 		return nil, err
 	}
+	c.SetLogger(log.New(os.Stderr, "vCert: ", log.LstdFlags))
 	return &c, nil
 }
 
@@ -622,6 +627,10 @@ func (c *Connector) ImportCertificate(req *certificate.ImportRequest) (*certific
 
 func (c *Connector) SetHTTPClient(client *http.Client) {
 	c.client = client
+}
+
+func (c *Connector) SetLogger(logger *log.Logger) {
+	c.log = logger
 }
 
 func (c *Connector) ListCertificates(filter endpoint.Filter) ([]certificate.CertificateInfo, error) {
