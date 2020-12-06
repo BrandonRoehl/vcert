@@ -24,7 +24,7 @@ import (
 	"os/user"
 	"path/filepath"
 
-	"github.com/Venafi/vcert/pkg/endpoint"
+	"github.com/Venafi/vcert/v4/pkg/endpoint"
 	"gopkg.in/ini.v1"
 )
 
@@ -43,6 +43,8 @@ type Config struct {
 	LogVerbose      bool
 	// http.Client to use durring construction
 	Client *http.Client
+	// log.Logger to use instead of the default logger
+	Logger *log.Logger
 }
 
 // LoadConfigFromFile is deprecated. In the future will be rewrited.

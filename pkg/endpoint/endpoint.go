@@ -27,7 +27,7 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/Venafi/vcert/pkg/certificate"
+	"github.com/Venafi/vcert/v4/pkg/certificate"
 )
 
 const SDKName = "Venafi VCert-Go"
@@ -92,6 +92,8 @@ type Connector interface {
 	ImportCertificate(req *certificate.ImportRequest) (*certificate.ImportResponse, error)
 	// SetHTTPClient allows to set custom http.Client to this Connector.
 	SetHTTPClient(client *http.Client)
+	// Set a logger to use in the VCert connector for custom logging
+	SetLogger(log *log.Logger)
 	// ListCertificates
 	ListCertificates(filter Filter) ([]certificate.CertificateInfo, error)
 }
